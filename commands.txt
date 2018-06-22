@@ -1,3 +1,5 @@
 bash setup.sh
 bash train.sh
 bash test_wmt.sh lstm.100.pickle 100 lstm.100 1
+
+bash tuning.sh lstm.100

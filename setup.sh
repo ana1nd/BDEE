@@ -12,6 +12,7 @@ mkdir -p glove_vocab
 mkdir -p logs
 mkdir -p savedir
 mkdir -p score
+mkdir -p tuned_score
 mkdir -p testlogdir
 
 mv wmt_data/ dataset/
