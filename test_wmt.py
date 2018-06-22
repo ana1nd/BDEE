@@ -225,6 +225,29 @@ firstv = infersent.encode(first, tokenize=True)
 secondv = infersent.encode(second,tokenize=True)    
 print("Done: Load encoder and process text and obtain sentence vectors")
 
+def save_obj(obj, name ):
+    with open(name, 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+def load_obj(name):
+    with open(name, 'rb') as f:
+        return pickle.load(f)
+#f1 = open(sys_file,'a+')
+#f2 = open(seg_file,'a+')
+first_vector_file, second_vector_file = params.filename + '.first.pkl', params.filename + '.second.pkl'
+if not os.path.exists(first_vector_file) :
+    print("First time: Save first and second vectors in a file")
+    save_obj(firstv,first_vector_file)
+    save_obj(secondv,second_vector_file)
+    print("Done: Save first and second vectors in a file")
+else:
+    print("Already available: Save first and second vectors in a file")
+    baapfirst, baapsecond = load_obj(first_vector_file), load_obj(second_vector_file)
+    tempfirst, tempsecond = np.concatenate((baapfirst,firstv),axis=0), np.concatenate((baapsecond,secondv),axis=0)
+    print(tempfirst.shape,tempsecond.shape)
+    save_obj(tempfirst,first_vector_file)
+    save_obj(tempsecond,second_vector_file)
+
 
 #print('\nTEST : Epoch {0}'.format(epoch))
 #evaluate(1e6, 'valid', True)
@@ -267,4 +290,6 @@ for i in range(0,sz,1):
 #avg = np.mean(score)
 #curr_line = [params.filename,lang_pair,"newstest2014",sys_name,str(avg)]
 #f1.write('\t'.join(curr_line[0:]) + '\n')
+print "Desc file generated"
 print "****************************************************"
+print "Find sytem and segment score for the current model"

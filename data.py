@@ -111,7 +111,7 @@ def build_vocab_wmt(sentences, glove_path,glove_vocab,glove_vocab_filename):
     word_dict = get_word_dict(sentences)
     word_vec = get_glove_wmt(word_dict, glove_path,glove_vocab,glove_vocab_filename)
     print('Vocab size : {0}'.format(len(word_vec)))
-    return word_vec    
+    return word_vec
 
 
 def get_wmt(ref_path,hyp_path):
@@ -157,7 +157,7 @@ def normalizeString(s):
     s = re.sub(r" &apos;ll ", r" will ", s)    
     s = re.sub(r" &apos;", r" ", s)
     #s = re.sub(r" &apos;", r"", s)
-    s = re.sub(r" &quot; ", r"", s)
+    s = re.sub(r" &quot; ", r" ", s)
     s = re.sub(r"&quot; ", r"", s)
 
     s = re.sub(r"([.!?])", r" \1", s)
@@ -185,22 +185,25 @@ def normalizeString(s):
 def get_sts(hyp_path):
     s1 = {}
     s2 = {}
-    first, second = list(), list()
+    
+    first, second, gs = list(), list(), list()
     for data_type in ['test']:
         s1[data_type], s2[data_type] = {}, {}
         s1[data_type]['path'] = os.path.join(hyp_path)
         s2[data_type]['path'] = os.path.join(hyp_path)
 
+
         s1[data_type]['sent'] = [normalizeString(line.rstrip().split('\t')[0]) for line in open(s1[data_type]['path'], 'r')]
         s2[data_type]['sent'] = [normalizeString(line.rstrip().split('\t')[1]) for line in open(s2[data_type]['path'], 'r')]
+        temp = [float(line.rstrip().split('\t')[2]) for line in open(hyp_path,'r')]
 
-        first, second = s1[data_type]['sent'], s2[data_type]['sent']
+        first, second, gs = s1[data_type]['sent'], s2[data_type]['sent'], temp
 
         assert len(s1[data_type]['sent']) == len(s2[data_type]['sent']) 
         print('** {0} DATA : Found {1} pairs of {2} sentences.'.format(data_type.upper(), len(s1[data_type]['sent']), data_type))
 
     test = {'s1': s1['test']['sent'], 's2': s2['test']['sent']}
-    return test, first, second    
+    return test, first, second, gs
 
 def get_sts_nli(data_path):
     s1 = {}
