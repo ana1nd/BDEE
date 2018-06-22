@@ -21,7 +21,7 @@ def norm(a):
 
 
 def train_model():
-	train_data=pd.read_csv("train2.desc", sep = '\t'	,header=None)
+	train_data=pd.read_csv("tuning_train.desc", sep = '\t',header=None)
 
 	trainx=train_data.ix[:,1:3]
 	trainy=train_data.ix[:,6:6]
