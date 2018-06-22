@@ -7,6 +7,13 @@ echo "---------------------------"
 
 echo "---------code setup--------"
 mkdir -p dataset
+mkdir -p encoderdir
+mkdir -p glove_vocab
+mkdir -p logs
+mkdir -p savedir
+mkdir -p score
+mkdir -p testlogdir
+
 mv wmt_data/ dataset/
 mv MultiNLI MNLI
 mv MNLI/s1.dev.matched MNLI/s1.dev
