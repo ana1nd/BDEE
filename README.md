@@ -1,8 +1,9 @@
-###Overview
+# Bi-directional Entailment Estimation (BDEE)
+### Overview
 -----------------------
 We aim to build a system for Machine Translation Evaluationn using Bi-directinal Entailment. We first build an Entailment system by training on NLI corpus like SNLI and MNLI. Post training we use the Entailment system to evaluate the candidate traslation with respect to reference translation in WMT14 dataset for metric task. We provide the code used for training Entailment system and evaluating on WMT14 dataset.
 
-###Code Setup
+### Code Setup
 -----------------------
 $ bash setup.sh
 
@@ -28,7 +29,7 @@ The above script performs following:
 4. Preproces the SICK dataset.
 
 
-###Training the model
+### Training the model
 -----------------------
 $ bash train.sh
 
@@ -54,7 +55,7 @@ The hyperparameters that can be provided are-
 
 
  
-###Evaluating the model
+### Evaluating the model
 ------------------------
 $ bash test_wmt.sh [model_name].pickle [encoder_dim] [own_name] [gpu_id]
 
@@ -62,7 +63,7 @@ example: bash test_wmt.sh lstm.100.pickle 100 lstm.100 1
 
 
 
-###Tuning the system
+### Tuning the system
 -----------------------
 $ bash tuning.sh [model_name]
 
